@@ -71,7 +71,7 @@ export function SidebarLeftSlot({
         // sessão — o tom do admin ficou bom demais pra deixar só ali, ver theme.css). A
         // distinção de modo vira borda: mais grossa e na cor do --ring quando admin, hairline
         // --border quando main — não troca mais o painel inteiro.
-        "relative flex h-full w-full flex-col px-3 py-6 text-foreground shadow-float bg-(image:--sidebar-bg) lg:w-(--sidebar-width-expanded) lg:shrink-0 lg:shadow-none ui-motion-emphasis",
+        "relative flex h-full w-full flex-col px-3 py-6 text-(--sidebar-foreground) shadow-float bg-(image:--sidebar-bg) lg:w-(--sidebar-width-expanded) lg:shrink-0 lg:shadow-none ui-motion-emphasis",
         isAdmin ? "border-ring lg:border-r-2" : "border-border lg:border-r",
         collapsed && "lg:w-(--sidebar-width-collapsed)",
       )}
@@ -125,7 +125,7 @@ export function SidebarLeftSlot({
                 <div className="relative h-5">
                   <p
                     className={cn(
-                      "absolute inset-0 px-3 pb-1 text-[11px] font-semibold uppercase tracking-caps text-muted-foreground/70 ui-motion-emphasis",
+                      "absolute inset-0 px-3 pb-1 text-[11px] font-semibold uppercase tracking-caps text-(--sidebar-foreground-muted) ui-motion-emphasis",
                       collapsed && "lg:opacity-0",
                     )}
                   >
@@ -144,9 +144,9 @@ export function SidebarLeftSlot({
           : navItems.map((item) => <SidebarNavLink key={item.key} item={item} collapsed={collapsed} isAdmin={isAdmin} />)}
 
         {isAdmin && navGroups.length === 0 && (
-          <p className="px-3 text-sm text-muted-foreground/56">—</p>
+          <p className="px-3 text-sm text-(--sidebar-foreground-muted)">—</p>
         )}
-        {!isAdmin && navItems.length === 0 && <p className="px-3 text-sm text-muted-foreground/56">—</p>}
+        {!isAdmin && navItems.length === 0 && <p className="px-3 text-sm text-(--sidebar-foreground-muted)">—</p>}
       </nav>
     </MobileNavDrawer>
   );

@@ -99,6 +99,20 @@
   --sidebar-bg-admin-end: oklch(0.22 0.05 219.5);
   --sidebar-bg-admin: linear-gradient(180deg, var(--sidebar-bg-admin-start) 0%, var(--sidebar-bg-admin-end) 100%);
 
+  /* Texto DENTRO da sidebar — ela é sempre escura (petróleo), nos dois modos claro/escuro, mas
+     --foreground/--muted-foreground/--primary regulares são calibrados pro --card claro do resto
+     da UI. No modo claro isso virava texto escuro sobre fundo escuro (bug reportado: "letras no
+     sidebar sem contraste"). Só nos dois blocos base — a mesma sidebar escura nos dois modos não
+     precisa de override em `.dark`. Não usar nos botões com fundo próprio claro dentro da sidebar
+     (bg-card/bg-muted: botão de colapso, pill Site/Admin) — esses continuam com os tokens
+     regulares, o fundo deles já é claro.
+     --sidebar-foreground: rótulo em hover/ativo (SidebarNavLink) e texto solto direto no fundo.
+     --sidebar-foreground-muted: rótulo em repouso (mais discreto).
+     --sidebar-foreground-active: rótulo do item da página atual (com bg-primary/10 por trás). */
+  --sidebar-foreground: oklch(0.97 0.006 219.5);
+  --sidebar-foreground-muted: oklch(0.76 0.025 219.5);
+  --sidebar-foreground-active: oklch(0.9 0.07 219.5);
+
   --warning: oklch(0.62 0.16 70);
   --warning-foreground: oklch(0.98 0.01 70);
   --warning-soft: color-mix(in oklch, var(--warning) 12%, var(--card));

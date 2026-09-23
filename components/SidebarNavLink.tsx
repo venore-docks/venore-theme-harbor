@@ -60,7 +60,10 @@ export function SidebarNavLink({ item, collapsed, isAdmin }: { item: MainNavItem
             // o ícone (bug reportado).
             "group/sidebar-collapse-target relative flex w-full cursor-pointer items-center gap-3 rounded-lg px-2 py-2.5 text-left text-sm ui-motion-base outline-none focus-visible:ring-2 focus-visible:ring-ring",
             collapsed && "lg:gap-0",
-            isActiveAncestor ? "font-semibold text-primary" : "font-medium text-muted-foreground",
+            // hover/active ganham um fundo CLARO (bg-muted) — texto escuro (text-foreground) já é
+            // o contraste certo ali, diferente do repouso (texto direto sobre o fundo escuro da
+            // sidebar, esse sim precisa dos tokens --sidebar-foreground-*).
+            isActiveAncestor ? "font-semibold text-(--sidebar-foreground-active)" : "font-medium text-(--sidebar-foreground-muted)",
             "hover:bg-muted hover:text-foreground active:bg-muted active:text-foreground",
           )}
         >
@@ -102,9 +105,12 @@ export function SidebarNavLink({ item, collapsed, isAdmin }: { item: MainNavItem
     // agregador acima (ver comentário ali).
     "group/sidebar-collapse-target relative flex items-center gap-3 rounded-lg px-2 py-2.5 text-sm ui-motion-base outline-none focus-visible:ring-2 focus-visible:ring-ring",
     collapsed && "lg:gap-0",
+    // Mesmo racional do agregador acima: hover/active têm fundo claro (bg-muted), texto escuro
+    // (text-foreground) já contrasta certo ali; só o repouso e o item da página atual (sem fundo
+    // claro por trás, só o wash translúcido bg-primary/10) precisam dos tokens --sidebar-foreground-*.
     isActive
-      ? "bg-primary/10 font-semibold text-primary"
-      : "font-medium text-muted-foreground hover:bg-muted hover:text-foreground active:bg-muted active:text-foreground",
+      ? "bg-primary/10 font-semibold text-(--sidebar-foreground-active)"
+      : "font-medium text-(--sidebar-foreground-muted) hover:bg-muted hover:text-foreground active:bg-muted active:text-foreground",
   );
   const content = (
     <>
