@@ -113,6 +113,12 @@
   --sidebar-foreground-muted: oklch(0.76 0.025 219.5);
   --sidebar-foreground-active: oklch(0.9 0.07 219.5);
 
+  /* Trilho do switch Site/Admin (SidebarSurfaceSwitch) — pedido explícito: continuar na família
+     petróleo da sidebar, nunca branco/bg-muted (que é a superfície CLARA do resto da UI). Mais
+     claro que --sidebar-bg (elevação sutil do controle sobre o painel), o indicador do segmento
+     selecionado usa --primary direto (não precisa de token próprio). */
+  --sidebar-surface-bg: oklch(0.38 0.045 219.5);
+
   --warning: oklch(0.62 0.16 70);
   --warning-foreground: oklch(0.98 0.01 70);
   --warning-soft: color-mix(in oklch, var(--warning) 12%, var(--card));

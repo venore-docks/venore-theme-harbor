@@ -3,7 +3,7 @@ import type { ThemeManifest } from "@venore/theme-sdk";
 export const harborManifest: ThemeManifest = {
   key: "harbor",
   name: "Harbor",
-  version: "0.1.3",
+  version: "0.1.4",
   themeContractVersion: "7.0.0",
   // logoUrl real vem de contexts/settings (upload em /admin/settings/brand) — isto só declara os
   // valores padrão de exibição. Cor aproxima o petróleo-teal de --primary (referência visual do

@@ -1,6 +1,6 @@
 {
   "name": "@venore/theme-harbor",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Harbor — tema do Venore Docks para o Portal do Colaborador (FEM): base do Aurora (rail, tipografia, radius), recolorido em petróleo #006b82 + branco, a identidade de marca do cliente.",
   "private": true,
   "type": "module",

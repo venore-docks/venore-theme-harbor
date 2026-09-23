@@ -173,7 +173,7 @@ function SidebarSurfaceSwitch({
         <button
           type="submit"
           aria-label={label}
-          className="group/sidebar-collapse-target relative flex size-11 items-center justify-center rounded-xl border border-border bg-muted text-foreground shadow-panel ui-motion-base outline-none hover:border-ring active:border-ring focus-visible:ring-2 focus-visible:ring-ring"
+          className="group/sidebar-collapse-target relative flex size-11 items-center justify-center rounded-xl border border-border bg-(--sidebar-surface-bg) text-(--sidebar-foreground) shadow-panel ui-motion-base outline-none hover:border-ring active:border-ring focus-visible:ring-2 focus-visible:ring-ring"
         >
           {isAdmin ? <ShieldCheck className="size-4" aria-hidden="true" /> : <Globe2 className="size-4" aria-hidden="true" />}
           <span className={cn("max-w-0 overflow-hidden whitespace-nowrap opacity-0", SIDEBAR_COLLAPSE_TOOLTIP_COLLAPSED_CLASSES)}>
@@ -186,14 +186,22 @@ function SidebarSurfaceSwitch({
           `lg:` quando colapsada, pra não duplicar o controle acima. Um único form (o toggle é
           sempre "inverte o modo atual", não "vá pro modo X"): o segmento já ativo fica disabled —
           visualmente marcado, mas sem submeter de novo — só o inativo dispara onToggleNavMode. */}
+      {/* Trilho e indicador ficam na família petróleo da sidebar (pedido: "não branco") —
+          --sidebar-surface-bg pro trilho, --primary pro indicador do segmento selecionado (a
+          própria cor de marca já serve de destaque, sem precisar de token novo). Texto sempre
+          claro (--sidebar-foreground/--sidebar-foreground-muted), nunca os tokens regulares
+          escuros — mesmo racional do restante da sidebar (theme.css). */}
       <form
         action={onToggleNavMode}
-        className={cn("relative grid grid-cols-2 gap-1 rounded-xl border border-border bg-muted p-1", collapsed && "lg:hidden")}
+        className={cn(
+          "relative grid grid-cols-2 gap-1 rounded-xl border border-border bg-(--sidebar-surface-bg) p-1",
+          collapsed && "lg:hidden",
+        )}
       >
       <span
         aria-hidden="true"
         className={cn(
-          "pointer-events-none absolute inset-y-1 z-0 w-[calc(50%-0.125rem)] rounded-lg border border-ring bg-card shadow-panel ui-motion-base",
+          "pointer-events-none absolute inset-y-1 z-0 w-[calc(50%-0.125rem)] rounded-lg bg-primary shadow-panel ui-motion-base",
           isAdmin ? "left-[calc(50%+0.125rem)]" : "left-1",
         )}
       />
@@ -203,7 +211,7 @@ function SidebarSurfaceSwitch({
         aria-current={!isAdmin ? true : undefined}
         className={cn(
           "relative z-10 flex h-9 items-center justify-center gap-2 rounded-lg text-xs font-semibold uppercase tracking-caps ui-motion-base outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-default",
-          !isAdmin ? "text-foreground" : "text-muted-foreground hover:text-foreground",
+          !isAdmin ? "text-(--sidebar-foreground)" : "text-(--sidebar-foreground-muted) hover:text-(--sidebar-foreground)",
         )}
       >
         <Globe2 className="size-4" aria-hidden="true" />
@@ -215,7 +223,7 @@ function SidebarSurfaceSwitch({
         aria-current={isAdmin ? true : undefined}
         className={cn(
           "relative z-10 flex h-9 items-center justify-center gap-2 rounded-lg text-xs font-semibold uppercase tracking-caps ui-motion-base outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-default",
-          isAdmin ? "text-foreground" : "text-muted-foreground hover:text-foreground",
+          isAdmin ? "text-(--sidebar-foreground)" : "text-(--sidebar-foreground-muted) hover:text-(--sidebar-foreground)",
         )}
       >
         <ShieldCheck className="size-4" aria-hidden="true" />
