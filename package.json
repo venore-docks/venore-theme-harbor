@@ -1,0 +1,21 @@
+{
+  "name": "@venore/theme-harbor",
+  "version": "0.1.0",
+  "description": "Harbor — tema do Venore Docks para o Portal do Colaborador (FEM): base do Aurora (rail, tipografia, radius), recolorido em petróleo #006b82 + branco, a identidade de marca do cliente.",
+  "private": true,
+  "type": "module",
+  "sideEffects": ["*.css"],
+  "exports": {
+    ".": "./index.ts",
+    "./manifest": "./manifest.ts",
+    "./color-palettes": "./color-palettes.ts",
+    "./theme.css": "./theme.css",
+    "./package.json": "./package.json"
+  },
+  "peerDependencies": {
+    "lucide-react": ">=0.400",
+    "next": ">=16",
+    "react": ">=19",
+    "react-dom": ">=19"
+  }
+}
