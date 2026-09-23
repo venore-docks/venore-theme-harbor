@@ -69,17 +69,25 @@ export function SidebarLeftSlot({
         // suficiente pro rail compacto (ver SidebarNavLink.tsx pro resto da conta).
         // Cópia deste tema: --sidebar-bg é a MESMA cor em main-nav e admin-nav (pedido desta
         // sessão — o tom do admin ficou bom demais pra deixar só ali, ver theme.css). A
-        // distinção de modo vira borda: mais grossa e na cor do --ring quando admin, hairline
-        // --border quando main — não troca mais o painel inteiro.
+        // distinção de modo vira borda: mais grossa e na cor do --ring quando admin (destaque de
+        // marca proposital, não uma linha neutra), hairline --sidebar-border quando main (mesmo
+        // princípio das outras linhas da sidebar: shade/tint do próprio petróleo, nunca o
+        // --border claro da UI branca) — não troca mais o painel inteiro.
         "relative flex h-full w-full flex-col px-3 py-6 text-(--sidebar-foreground) shadow-float bg-(image:--sidebar-bg) lg:w-(--sidebar-width-expanded) lg:shrink-0 lg:shadow-none ui-motion-emphasis",
-        isAdmin ? "border-ring lg:border-r-2" : "border-border lg:border-r",
+        isAdmin ? "border-ring lg:border-r-2" : "border-(--sidebar-border) lg:border-r",
         collapsed && "lg:w-(--sidebar-width-collapsed)",
       )}
     >
-      {/* z-50 (não z-10): esse botão flutua pra fora da sidebar (translate-x-1/2) sobre a coluna
-          de conteúdo, onde o HeaderSlot mora — header é sticky com z-40, e com z-10 o header
-          ficava por cima e cortava a seta ao meio (mesmo bug/fix do Aurora, origem deste tema). */}
-      <div className="absolute top-4 right-0 z-50 hidden translate-x-1/2 lg:block">
+      {/* z-50 sozinho não bastava (bug reportado: metade do botão sumia atrás do header) — o
+          stacking context real vinha do wrapper do MobileNavDrawer (`lg:translate-x-0`, que
+          continua sendo um `translate` ≠ none e por isso cria contexto próprio, prendendo o z-50
+          deste botão lá dentro; o header, em outro contexto por estar numa coluna irmã, pintava
+          por cima independente do valor do z-index). Fix real em MobileNavDrawer.tsx
+          (`lg:translate-none`); z-50 aqui garante que o botão fique acima do próprio conteúdo da
+          sidebar (nav, switch) quando eles roseiam por baixo dele.
+          top-6 (não top-4): centraliza melhor com a marca no header (lg:h-24 = 6rem de altura;
+          6rem/2 − size-11/2 ≈ top-6), pedido explícito ("alinhado ao brand"). */}
+      <div className="absolute top-6 right-0 z-50 hidden translate-x-1/2 lg:block">
         <button
           type="button"
           onClick={handleToggleCollapsed}
@@ -99,7 +107,7 @@ export function SidebarLeftSlot({
         // pt-8: espaço reservado pro botão flutuante de colapso (top-4, size-11), que fica
         // sobreposto ao canto superior direito do frame — mesma folga em expandido/colapsado pra
         // não depender de cálculo fino de onde a coluna direita do pill termina.
-        <div className="shrink-0 border-b border-border pt-8 pb-4">
+        <div className="shrink-0 border-b border-(--sidebar-border) pt-8 pb-4">
           <SidebarSurfaceSwitch isAdmin={isAdmin} collapsed={collapsed} onToggleNavMode={onToggleNavMode} />
         </div>
       )}
@@ -132,7 +140,7 @@ export function SidebarLeftSlot({
                     {group.label}
                   </p>
                   <div
-                    className={cn("absolute inset-x-2 top-1/2 h-px -translate-y-1/2 bg-border opacity-0 ui-motion-emphasis", collapsed && "lg:opacity-100")}
+                    className={cn("absolute inset-x-2 top-1/2 h-px -translate-y-1/2 bg-(--sidebar-border) opacity-0 ui-motion-emphasis", collapsed && "lg:opacity-100")}
                     aria-hidden="true"
                   />
                 </div>
@@ -173,7 +181,7 @@ function SidebarSurfaceSwitch({
         <button
           type="submit"
           aria-label={label}
-          className="group/sidebar-collapse-target relative flex size-11 items-center justify-center rounded-xl border border-border bg-(--sidebar-surface-bg) text-(--sidebar-foreground) shadow-panel ui-motion-base outline-none hover:border-ring active:border-ring focus-visible:ring-2 focus-visible:ring-ring"
+          className="group/sidebar-collapse-target relative flex size-11 items-center justify-center rounded-xl border border-(--sidebar-border) bg-(--sidebar-surface-bg) text-(--sidebar-foreground) shadow-panel ui-motion-base outline-none hover:border-ring active:border-ring focus-visible:ring-2 focus-visible:ring-ring"
         >
           {isAdmin ? <ShieldCheck className="size-4" aria-hidden="true" /> : <Globe2 className="size-4" aria-hidden="true" />}
           <span className={cn("max-w-0 overflow-hidden whitespace-nowrap opacity-0", SIDEBAR_COLLAPSE_TOOLTIP_COLLAPSED_CLASSES)}>
@@ -194,7 +202,7 @@ function SidebarSurfaceSwitch({
       <form
         action={onToggleNavMode}
         className={cn(
-          "relative grid grid-cols-2 gap-1 rounded-xl border border-border bg-(--sidebar-surface-bg) p-1",
+          "relative grid grid-cols-2 gap-1 rounded-xl border border-(--sidebar-border) bg-(--sidebar-surface-bg) p-1",
           collapsed && "lg:hidden",
         )}
       >

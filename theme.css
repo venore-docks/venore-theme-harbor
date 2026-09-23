@@ -119,6 +119,13 @@
      selecionado usa --primary direto (não precisa de token próprio). */
   --sidebar-surface-bg: oklch(0.38 0.045 219.5);
 
+  /* Linhas de separação DENTRO da sidebar (divisor sob o switch Site/Admin, contorno do pill,
+     divisor de grupo colapsado) — pedido explícito: nunca o --border regular (quase-branco,
+     calibrado pro resto da UI clara), sempre um shade/tint da própria família petróleo da
+     sidebar. Mais claro que --sidebar-bg e que --sidebar-surface-bg pra continuar visível como
+     traço, sem virar uma linha branca destacada sobre o fundo escuro. */
+  --sidebar-border: oklch(0.46 0.055 219.5);
+
   --warning: oklch(0.62 0.16 70);
   --warning-foreground: oklch(0.98 0.01 70);
   --warning-soft: color-mix(in oklch, var(--warning) 12%, var(--card));

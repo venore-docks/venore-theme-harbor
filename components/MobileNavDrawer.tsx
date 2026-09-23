@@ -97,7 +97,13 @@ export function MobileNavDrawer({ children, asideClassName }: { children: ReactN
         ref={panelRef}
         className={cn(
           "fixed inset-y-0 left-0 z-50 w-64 max-w-[85vw] ui-motion-emphasis",
-          "lg:static lg:z-auto lg:w-auto lg:max-w-none lg:shrink-0 lg:translate-x-0 lg:transition-none",
+          // lg:translate-none (não lg:translate-x-0): translate-x-0 ainda é um valor de `translate`
+          // diferente de `none` (é `0px`), então CONTINUA criando stacking context — o botão
+          // flutuante de colapso (SidebarLeftSlot, z-50) ficava preso dentro dele e o header
+          // (coluna irmã, z-40 mas em outro stacking context) pintava por cima de qualquer jeito,
+          // não importa o z-index do botão (bug reportado: metade do botão sumia atrás do header).
+          // Só `translate: none` de verdade remove o stacking context no desktop.
+          "lg:static lg:z-auto lg:w-auto lg:max-w-none lg:shrink-0 lg:translate-none lg:transition-none",
           isOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
